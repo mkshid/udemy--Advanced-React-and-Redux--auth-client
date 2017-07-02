@@ -4,30 +4,14 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
 
-class Signin extends Component {
 
-    handleFormSubmit ({email, password}){
-        console.log(email, password);
-        const { history } = this.props;
-        this.props.signinUser({email, password, history});
-        
-    }
-
-    renderAlert(){
-        if (this.props.errorMessage){
-            return (
-                <div className='alert alert-danger'>
-                  <strong>Ops! </strong> {this.props.errorMessage}
-                </div>
-            );
-        }
-    }
-
-
+class Signup extends Component {
     render(){
+
         const { handleSubmit } = this.props;
+
         return (
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            <form>
               <div className="form-group">
                 <label>Email: </label>
                 <div>
@@ -36,29 +20,31 @@ class Signin extends Component {
                          type="text" />
                 </div>
               </div>
+
               <div className="form-group">
                 <label>Password: </label>
                 <div>
                   <Field name="password" component="input" type="password"
                          className="form-control"/>
-                  </div>
+                </div>
               </div>
-                {this.renderAlert()}
+
+              <div className="form-group">
+                <label>Confirm Password: </label>
+                <div>
+                  <Field name="passwordConfirm" component="input" type="password"
+                         className="form-control"/>
+                </div>
+              </div>
+
               <button action="submit" className="btn btn-primary">
-                Sign in
+                Sign up!
               </button>
             </form>
         );
     }
-   
-}
-function mapStateToProps(state){
-    return {errorMessage: state.auth.error};
 }
 
-
-Signin  = reduxForm({
-    form: 'signin'
-})(Signin);
-
-export default connect(mapStateToProps, actions )(Signin);
+export default reduxForm(
+    {form: 'signup'}
+)(Signup);
