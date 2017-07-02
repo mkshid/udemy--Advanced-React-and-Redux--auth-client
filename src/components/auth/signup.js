@@ -23,6 +23,16 @@ const renderField = ({
 const validate = values => {
     const errors = {};
 
+    if (!values.email){
+        errors.email = 'Please enter a email';
+    }
+    if (!values.password){
+        errors.password = 'Please enter a password';
+    }
+    if (!values.passwordConfirm){
+        errors.passwordConfirm = 'Please enter a password confirmation';
+    }
+
     if (values.password !== values.passwordConfirm){
         errors.password = 'Password must be same!';
     }
