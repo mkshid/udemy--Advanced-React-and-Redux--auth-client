@@ -13,6 +13,9 @@ export function signinUser({email, password, history}){
                 // Update state to true to show is authenticated
                 dispatch({type: AUTH_USER});
 
+                // Save the JWT token
+                localStorage.setItem('token', response.data.token);
+
                 // Redirect to feature in case of success
                 history.push('/feature');
             })
