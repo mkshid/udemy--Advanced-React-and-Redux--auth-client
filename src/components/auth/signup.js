@@ -44,12 +44,27 @@ const validate = values => {
 
 class Signup extends Component {
 
+    handleFormSubmit({email, password}){
+        const { history } = this.props;
+        this.props.signupUser({email, password, history});
+    }
+
+    renderAlert(){
+        if (this.props.errorMessage){
+            return (
+                <div className='alert alert-danger'>
+                  <strong>Ops! </strong> {this.props.errorMessage}
+                </div>
+            );
+        }
+    }
+
     render(){
 
         const { handleSubmit } = this.props;
 
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
               <div className="form-group">
                 <label>Email: </label>
                 <div>
@@ -70,7 +85,7 @@ class Signup extends Component {
                   <Field name="passwordConfirm" component={renderField} type="password"/>
                 </div>
               </div>
-
+              {this.renderAlert()}
               <button action="submit" className="btn btn-primary">
                 Sign up!
               </button>
@@ -79,7 +94,15 @@ class Signup extends Component {
     }
 }
 
-export default reduxForm(
+function mapStateToProps(state){
+    return {errorMessage: state.auth.error};
+}
+
+
+Signup = reduxForm(
     {form: 'signup',
-    validate}
+     validate}
 )(Signup);
+
+
+export default connect(mapStateToProps, actions )(Signup);
