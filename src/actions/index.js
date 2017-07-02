@@ -55,3 +55,13 @@ export function authError(error){
         payload: error
     };
 }
+
+
+export function fetchMessage() {
+    return function(dispatch){
+        axios.get(ROOT_URL, {
+            headers: {authorization: localStorage.getItem('token')}
+        })
+            .then(reponse => console.log(reponse));
+    };
+}
