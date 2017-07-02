@@ -13,7 +13,12 @@ export default class App extends Component {
     render() {
         return (
             <div>
-              <Header />
+                <Header />
+              <Route
+                 exact
+                 path='/'
+                 component={() => <div> Welcome to auth app </div>}
+                 />
               <Route
                  path={this.props.match.url + 'signin'}
                  component={Signin}
